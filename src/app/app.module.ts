@@ -4,17 +4,21 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-
+import { Select2Module } from 'ng2-select2';
+import { TemplateComponent } from './template/template.component';
+import { DataService } from './services/data.service';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TemplateComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    Select2Module
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

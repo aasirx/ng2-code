@@ -843,6 +843,7 @@ S2.define('select2/results',[
     }
 
     this.$results.append($options);
+    var template = this.options.get('templateResult');
   };
 
   Results.prototype.position = function ($results, $dropdown) {
@@ -1004,7 +1005,7 @@ S2.define('select2/results',[
     var self = this;
 
     var id = container.id + '-results';
-
+    alert(id);
     this.$results.attr('id', id);
 
     container.on('results:all', function (params) {
@@ -1267,12 +1268,22 @@ S2.define('select2/results',[
     }
   };
 
+  var print = function(object){
+    var res = "";
+     for (var i in object) {
+        res += i + ":" + object[i] + ";\n"
+     }
+    res += "\n";
+    return res;     
+  }
+
   Results.prototype.template = function (result, container) {
     var template = this.options.get('templateResult');
     var escapeMarkup = this.options.get('escapeMarkup');
-
+    console.log(print(container))
     var content = template(result, container);
-
+    var templatereturn = this.options.get('templatereturn');
+    templatereturn(result);
     if (content == null) {
       container.style.display = 'none';
     } else if (typeof content === 'string') {
@@ -3048,6 +3059,9 @@ S2.define('select2/data/select',[
 
       data.push(option);
     });
+    this.$element.find('input:checkbox:checked').each(function(){
+      var $option = $(this)
+    })
 
     callback(data);
   };

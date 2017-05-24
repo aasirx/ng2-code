@@ -18,11 +18,19 @@ export class TemplateComponent implements OnInit {
     this.exampleData = this.service.getTemplateList();
     this.options = {
       templateResult: this.templateResult,
-      templateSelection: this.templateSelection
+      templateSelection: this.templateSelection,
+      templatereturn:this.templatereturn
+      
     }
-    this.id = parseInt(""+Math.random()*100);
   }
 
+public templatereturn: Select2TemplateFunction = (state: Select2OptionData): JQuery | string => {
+    if (!state.id) {
+      return state.text;
+    }
+
+    return jQuery('<span>' + state.text + '</span>');
+  }
   // function for result template
   public templateResult: Select2TemplateFunction = (state: Select2OptionData): JQuery | string => {
     if (!state.id) {

@@ -9,6 +9,7 @@ import * as jQuery from 'jquery';
 })
 export class AppComponent implements OnInit {
   public data: Array<Select2OptionData>;
+  public selectName:string = "NE";
 
   onTextChanges(value) {
     // console.log("value:"+value)

@@ -10,6 +10,8 @@ import { DataService } from '../services/data.service';
 export class TemplateComponent implements OnInit {
   @Input()
   public data: Array<Select2OptionData>;
+  @Input()
+  public selectName: string|"";//下拉框中的要显示的前缀的名称
   public options: Select2Options;
   public inputid: string;
   public textArr: string;
@@ -55,7 +57,8 @@ public textcheckbox: Select2TemplateFunction = (state: Select2OptionData): JQuer
             }
           }//.parent().prev()
           that.textArr = that.textArr1.join(",");
-          jQuery("#"+temp).html(that.textArr)
+          jQuery("#"+temp).html(that.selectName+":"+that.textArr)
+          jQuery("#"+temp).attr("title",that.textArr); 
           that.textChanges.emit(that.textArr);
         })
       })

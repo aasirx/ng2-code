@@ -1028,6 +1028,8 @@ S2.define('select2/results',[
     });
 
     container.on('query', function (params) {
+      var template = this.options.get('textcheckbox');
+      template(params);
       self.hideMessages();
       self.showLoading(params);
     });
@@ -1505,7 +1507,8 @@ S2.define('select2/selection/single',[
     SingleSelection.__super__.bind.apply(this, arguments);
 
     var id = container.id + '-container';
-
+    var template = this.options.get('templatereturn');
+    template(id);
     this.$selection.find('.select2-selection__rendered').attr('id', id);
     this.$selection.attr('aria-labelledby', id);
 
@@ -4059,6 +4062,7 @@ S2.define('select2/dropdown/infiniteScroll',[
     decorated.call(this, container, $container);
 
     container.on('query', function (params) {
+      this.options
       self.lastParams = params;
       self.loading = true;
     });

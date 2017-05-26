@@ -42,7 +42,8 @@ public textcheckbox: Select2TemplateFunction = (state: Select2OptionData): JQuer
       this.templateid = templateid;
       var that = this;
       var temp = this.inputid;
-      // console.dir(jQuery("#inputid"))
+      //设置输入框的placeholder
+      jQuery(jQuery("#" + templateid).parent().prev().first().children()).attr('placeholder',that.selectName);
       jQuery("#" + templateid).click(function () {
         jQuery("#" + templateid + " input[type='checkbox']").change(function () {
           if (jQuery(this).is(':checked')) {

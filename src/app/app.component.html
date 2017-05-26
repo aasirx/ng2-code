@@ -3,3 +3,5 @@
 (textChanges)="onTextChanges($event)"
 [selectName]="selectName">
 </app-template>
+<app-site></app-site>
+<ss-multiselect-dropdown [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>

@@ -1,0 +1,19 @@
+{
+    "sites":[
+        {
+            "Name":"Luwafu_DIR_Muswa",
+            "Position":"EMS=HUAWEI_TRANS@NEID=3145888",
+            "Other":"123"
+        },
+        {
+            "Name":"Luwafu_DIR_buswe",
+            "Position":"EMS=HUAWEI_TRANS@NEID=3145889",
+            "Other":"1234"
+        },
+        {
+            "Name":"Luwafu_DIR_euswe",
+            "Position":"EMS=HUAWEI_TRANS@NEID=3145890",
+            "Other":"12345"
+        }
+    ]
+}

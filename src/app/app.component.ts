@@ -2,30 +2,59 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Select2TemplateFunction, Select2OptionData } from 'ng2-select2';
 import { DataService } from './services/data.service';
 import * as jQuery from 'jquery';
-import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
+import { siteType } from './dropdown-site/site-types'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public data: Array<Select2OptionData>;
+  public data: siteType[];
   public selectName: string = "NE";
   optionsModel: number[];
-  myOptions: IMultiSelectOption[];
   onTextChanges(value) {
     // console.log("value:"+value)
   }
-  constructor(private service: DataService) { }
-  ngOnInit() {
-    this.data = this.service.getTemplateList();
-    this.myOptions = [
-      { id: 1, name: 'Option 1' },
-      { id: 2, name: 'Option 2' },
-    ];
-  }
+  
+
+  private countries: IMultiSelectOption[] = [
+    { id: 1, name: 'Sweden' },
+    { id: 2, name: 'Norway' },
+    { id: 3, name: 'Denmark' },
+    { id: 4, name: 'Finland' },
+  ];
+
+  private texts: IMultiSelectTexts = {
+    defaultTitle: 'Select countries'
+  };
+
+  private selectSettings: IMultiSelectSettings = {
+    checkedStyle: 'glyphicon',
+    showCheckAll: true,
+    showUncheckAll: true,
+  };
+
+  private selectSettings2: IMultiSelectSettings = {
+    enableSearch: true,
+    checkedStyle: 'fontawesome',
+    // checkedStyle: 'glyphicon',
+
+  };
   onChange() {
         console.log(this.optionsModel);
     }
+
+constructor(private service: DataService) { }
+  ngOnInit() {
+    this.service.getSites()
+        .then(res => {
+          this.data = res;
+        })
+
+  }
+
+
 
 }

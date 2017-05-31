@@ -10,11 +10,13 @@ import { DataService } from './services/data.service';
 import { SiteComponent } from './site/site.component';
 import { MultiselectDropdownModule } from './dropdown/dropdown.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { DropdownSiteComponent } from './dropdown-site/dropdown-site.component';
 @NgModule({
   declarations: [
     AppComponent,
     TemplateComponent,
-    SiteComponent
+    SiteComponent,
+    DropdownSiteComponent
   ],
   imports: [
     BrowserModule,

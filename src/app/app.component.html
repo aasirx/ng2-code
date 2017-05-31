@@ -1,7 +1,14 @@
-<app-template 
+<!--<app-template 
 [data]="data"
 (textChanges)="onTextChanges($event)"
 [selectName]="selectName">
-</app-template>
-<app-site></app-site>
-<ss-multiselect-dropdown [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+</app-template>-->
+<div>
+		
+			<h4>Search filter</h4>
+			<ss-multiselect-dropdown [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)" [options]="countries" [settings]="selectSettings2" [texts]="texts"></ss-multiselect-dropdown>
+		
+	    </div>
+<div>
+	<app-dropdown-site [options]="data"></app-dropdown-site>
+</div>

@@ -10,9 +10,10 @@ export class MultiSelectSearchFilter implements PipeTransform {
       getChildren = (option: IMultiSelectOption) => options.filter(child => child.parentId === option.id),
       getParent = (option: IMultiSelectOption) => options.find(parent => option.parentId === parent.id);
     return options.filter((option: IMultiSelectOption) => {
-      return matchPredicate(option) ||
+      let str = matchPredicate(option) ||
         (typeof (option.parentId) === 'undefined' && getChildren(option).some(matchPredicate)) ||
         (typeof (option.parentId) !== 'undefined' && matchPredicate(getParent(option)));
+      return str;
     });
   }
 }

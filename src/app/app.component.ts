@@ -11,7 +11,26 @@ import { siteType } from './dropdown-site/site-types'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public data: siteType[];
+  public data: siteType[] = [
+        {
+            sitename:"Luwafu_DIR_Muswa",
+            region:"EMS=HUAWEI_TRANS@NEID=3145888",
+            location:"123",
+            description:"desc1"
+        },
+        {
+            sitename:"Luwafu_DIR_buswe",
+            region:"EMS=HUAWEI_TRANS@NEID=3145889",
+            location:"1234",
+            description:"desc3"
+        },
+        {
+            sitename:"Luwafu_DIR_euswe",
+            region:"EMS=HUAWEI_TRANS@NEID=3145890",
+            location:"12345",
+            description:"desc2"
+        }
+    ]
   public selectName: string = "NE";
   optionsModel: number[];
   onTextChanges(value) {

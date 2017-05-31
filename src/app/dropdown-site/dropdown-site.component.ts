@@ -92,6 +92,9 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
     this.isVisible = !this.isVisible;
     this.isVisible ? this.dropdownOpened.emit() : this.dropdownClosed.emit();
   }
+  preventCheckboxCheck(event: Event, option: siteType) {
+   alert(option.sitename);
+  }
 
   ngOnInit() {
     this.settings = Object.assign(this.defaultSettings, this.settings);

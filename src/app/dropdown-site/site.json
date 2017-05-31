@@ -1,19 +1,22 @@
 {
-    "sites":[
+    "sites": [
         {
-            "Name":"Luwafu_DIR_Muswa",
-            "Position":"EMS=HUAWEI_TRANS@NEID=3145888",
-            "Other":"123"
+            "sitename": "Luwafu_DIR_Muswa",
+            "region": "EMS=HUAWEI_TRANS@NEID=3145888",
+            "location": "123",
+            "description": "desc1"
         },
         {
-            "Name":"Luwafu_DIR_buswe",
-            "Position":"EMS=HUAWEI_TRANS@NEID=3145889",
-            "Other":"1234"
+            "sitename": "Luwafu_DIR_buswe",
+            "region": "EMS=HUAWEI_TRANS@NEID=3145889",
+            "location": "1234",
+            "description": "desc3"
         },
         {
-            "Name":"Luwafu_DIR_euswe",
-            "Position":"EMS=HUAWEI_TRANS@NEID=3145890",
-            "Other":"12345"
+            "sitename": "Luwafu_DIR_euswe",
+            "region": "EMS=HUAWEI_TRANS@NEID=3145890",
+            "location": "12345",
+            "description": "desc2"
         }
     ]
 }

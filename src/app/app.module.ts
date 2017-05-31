@@ -9,14 +9,14 @@ import { TemplateComponent } from './template/template.component';
 import { DataService } from './services/data.service';
 import { SiteComponent } from './site/site.component';
 import { MultiselectDropdownModule } from './dropdown/dropdown.module';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { DropdownSiteComponent } from './dropdown-site/dropdown-site.component';
+import { MultiselectDropdownSiteModule } from './dropdown-site/dropdown-site.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
     TemplateComponent,
-    SiteComponent,
-    DropdownSiteComponent
+    SiteComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +24,7 @@ import { DropdownSiteComponent } from './dropdown-site/dropdown-site.component';
     HttpModule,
     Select2Module,
     MultiselectDropdownModule,
+    MultiselectDropdownSiteModule,
     NgbModule.forRoot()
   ],
   providers: [DataService],

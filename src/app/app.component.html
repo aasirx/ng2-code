@@ -10,5 +10,5 @@
 		
 	    </div>
 <div>
-	<app-dropdown-site [options]="data"></app-dropdown-site>
+	<app-dropdown-site (ngModelChange)="onChange($event)" [options]="data"></app-dropdown-site>
 </div>

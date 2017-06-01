@@ -1,3 +1,4 @@
+
 <div class="dropdown" [ngClass]="settings.containerClasses" [class.open]="isVisible">
   <button 
       type="button" 
@@ -7,40 +8,91 @@
       [disabled]="disabled">{{ title }}
       <span class="caret"></span>
     </button>
-    <div 
-      *ngIf="isVisible" 
-      class="dropdown-menu" 
-      [class.pull-right]="settings.pullRight" 
-      [class.dropdown-menu-right]="settings.pullRight"
-      [style.max-height]="settings.maxHeight" 
-      style="display: block; height: auto; overflow-y: auto;width:500px">
-       <li class="dropdown-item search" *ngIf="settings.enableSearch">
-      <div class="input-group input-group-sm">
-        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search"></i></span>
-        <input type="text" class="form-control" placeholder="{{ texts.searchPlaceholder }}" aria-describedby="sizing-addon3" [(ngModel)]="searchFilterText"
-          [ngModelOptions]="{standalone: true}" autofocus>
-        <span class="input-group-btn" *ngIf="searchFilterText.length > 0">
-          <button class="btn btn-default btn-secondary" type="button" (click)="clearSearch($event)"><i class="fa fa-times"></i></button>
-        </span>
+    <div>
+        <div 
+        *ngIf="isVisible" 
+        class="dropdown-menu div1" 
+        [class.pull-right]="settings.pullRight" 
+        [class.dropdown-menu-right]="settings.pullRight"
+        [style.max-height]="settings.maxHeight" 
+        style="display: inline-block; height: auto; overflow-y: auto;width:400px;">
+        <li class="dropdown-item search" *ngIf="settings.enableSearch">
+        <div class="input-group input-group-sm">
+          <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="{{ texts.searchPlaceholder }}" aria-describedby="sizing-addon3" [(ngModel)]="searchFilterText"
+            [ngModelOptions]="{standalone: true}" autofocus>
+          <span class="input-group-btn" *ngIf="searchFilterText.length > 0">
+            <button class="btn btn-default btn-secondary" type="button" (click)="clearSearch($event)"><i class="fa fa-times"></i></button>
+          </span>
+        </div>
+      </li>
+        <table class="table table-striped table-bordered fmrule_table_border table-hover dataTable">
+          <thead>
+            <tr>
+              <td></td>
+              <td>sitename</td>
+              <td>region</td>
+              <td>location</td>
+              <td>description</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr 
+              *ngFor="let option of options | searchSiteFilter:searchFilterText" 
+              (click)="setSelected($event, option)"
+              [ngStyle]="getItemStyle(option)">
+              <td>
+                <span *ngIf="settings.checkedStyle === 'fontawesome'" style="width: 16px;display: inline-block;">
+                  <i *ngIf="isSelected(option)" class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </td>
+              <td>{{option.sitename}}</td>
+              <td>{{option.region}}</td>
+              <td>{{option.location}}</td>
+              <td>{{option.description}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </li>
-      <table class="table table-striped table-bordered fmrule_table_border table-hover dataTable">
-        <thead>
-          <tr>
-            <td>sitename</td>
-            <td>region</td>
-            <td>location</td>
-            <td>description</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let option of options | searchSiteFilter:searchFilterText" (click)="preventCheckboxCheck($event, option)">
-            <td>{{option.sitename}}</td>
-            <td>{{option.region}}</td>
-            <td>{{option.location}}</td>
-            <td>{{option.description}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div *ngIf="isVisible && isShowRightTable" style="width: 16px;margin-left:37%;margin-top:10%;position: absolute" class="div1">
+        <span style="width: 16px;display: inline-block; cursor:pointer" (click)="turnRight()">
+           <i  class="fa fa-long-arrow-right" aria-hidden="true"></i>
+        </span>
+        <!--<span style="width: 16px;display: inline-block; cursor:pointer">
+           <i  class="fa fa-long-arrow-left" aria-hidden="true"></i>
+        </span>-->
+      </div>
+      <div  
+        *ngIf="isVisible && isShowRightTable" 
+        class="dropdown-menu div1"
+         [style.max-height]="settings.maxHeight" 
+        style="display: inline-block; height: auto; overflow-y: auto;width:400px;margin-left:40%">
+          
+         <table style="margin-top:8.5%" class="table table-striped table-bordered fmrule_table_border table-hover dataTable">
+          <thead>
+            <tr>
+              <td>sitename</td>
+              <td>region</td>
+              <td>location</td>
+              <td>description</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr 
+              *ngFor="let option of optionsRight" 
+              [ngStyle]="getItemStyle(option)">
+              <td>{{option.sitename}}</td>
+              <td>{{option.region}}</td>
+              <td>{{option.location}}</td>
+              <td>{{option.description}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
+    
+    
 </div>
+
+

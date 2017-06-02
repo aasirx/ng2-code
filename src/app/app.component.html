@@ -4,11 +4,12 @@
 [selectName]="selectName">
 </app-template>-->
 <div>
-		
-			<h4>Search filter</h4>
-			<ss-multiselect-dropdown [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)" [options]="countries" [settings]="selectSettings2" [texts]="texts"></ss-multiselect-dropdown>
-		
-	    </div>
+
+	<h4>Search filter</h4>
+	<ss-multiselect-dropdown [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)" [options]="countries" [settings]="selectSettings"
+	 [texts]="texts"></ss-multiselect-dropdown>
+
+</div>
 <div>
-	<app-dropdown-site (ngModelChange)="onChange($event)" [options]="data"></app-dropdown-site>
+	<app-dropdown-site [(ngModel)]="optionsModel2" [texts]="texts2" (ngModelChange)="onChange2($event)" [options]="data"></app-dropdown-site>
 </div>

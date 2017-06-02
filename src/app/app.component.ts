@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Select2TemplateFunction, Select2OptionData } from 'ng2-select2';
 import { DataService } from './services/data.service';
 import * as jQuery from 'jquery';
-import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from './dropdown/types';
 import { siteType } from './dropdown-site/site-types'
 
 @Component({
@@ -14,24 +14,32 @@ export class AppComponent implements OnInit {
   public data: siteType[] = [];
   public selectName: string = "NE";
   optionsModel: number[];
+  optionsModel2: string[];
   onTextChanges(value) {
     // console.log("value:"+value)
   }
-  
+
 
   private countries: IMultiSelectOption[] = [
-    { id: 1, name: 'Sweden' },
-    { id: 2, name: 'Norway' },
-    { id: 3, name: 'Denmark' },
-    { id: 4, name: 'Finland' },
+    { value: 1, name: 'Sweden' },
+    { value: 2, name: 'Norway' },
+    { value: 3, name: 'Denmark' },
+    { value: 4, name: 'Finland' },
   ];
 
   private texts: IMultiSelectTexts = {
-    defaultTitle: 'Select countries'
+    defaultTitle: 'Select NE',
+    buttonPrefix: 'NE',
+    searchPlaceholder: 'Find NE'
+  };
+  private texts2: IMultiSelectTexts = {
+    defaultTitle: 'Select Site',
+    buttonPrefix: 'Site',
+    searchPlaceholder: 'Find Site'
   };
 
   private selectSettings: IMultiSelectSettings = {
-    checkedStyle: 'glyphicon',
+    checkedStyle: 'fontawesome',
     showCheckAll: true,
     showUncheckAll: true,
   };
@@ -43,15 +51,18 @@ export class AppComponent implements OnInit {
 
   };
   onChange() {
-        console.log(this.optionsModel);
-    }
+    console.log(this.optionsModel);
+  }
+  onChange2() {
+    console.log(this.optionsModel2);
+  }
 
-constructor(private service: DataService) { }
+  constructor(private service: DataService) { }
   ngOnInit() {
     this.service.getSites()
-        .then(res => {
-          this.data = res;
-        })
+      .then(res => {
+        this.data = res;
+      })
 
   }
 

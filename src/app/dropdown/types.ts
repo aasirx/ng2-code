@@ -1,5 +1,5 @@
 export interface IMultiSelectOption {
-  id: any;
+  value: any;
   name: string;
   isLabel?: boolean;
   parentId?: any;
@@ -32,4 +32,5 @@ export interface IMultiSelectTexts {
   searchPlaceholder?: string;
   defaultTitle?: string;
   allSelected?: string;
+  buttonPrefix:string;
 }

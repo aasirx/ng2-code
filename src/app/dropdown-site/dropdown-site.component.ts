@@ -27,7 +27,8 @@ const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'app-dropdown-site',
   templateUrl: './dropdown-site.component.html',
-  styleUrls: ['./dropdown-site.component.css']
+  styleUrls: ['./dropdown-site.component.css'],
+  providers: [MULTISELECT_VALUE_ACCESSOR]
 })
 export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, ControlValueAccessor, Validator {
   @Input() options: Array<siteType>;
@@ -62,9 +63,10 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
   isVisible: boolean = false;
   title: string;
   searchFilterText: string = '';
-  isShowRightTable:boolean = false;
+  isShowRightTable: boolean = false;
   numSelected: number = 0;
   differ: any;
+  allTitle:string = '';//button显示的所有值
 
   defaultSettings: IMultiSelectSettings = {
     pullRight: false,
@@ -89,11 +91,12 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
     searchPlaceholder: 'Search...',
     defaultTitle: 'Select',
     allSelected: 'All selected',
+    buttonPrefix:''
   };
 
-  constructor(private element: ElementRef,differs: IterableDiffers) {
+  constructor(private element: ElementRef, differs: IterableDiffers) {
     this.differ = differs.find([]).create(null);
-   }
+  }
 
   toggleDropdown() {
     this.isVisible = !this.isVisible;
@@ -125,11 +128,13 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
         }
       }
     }
+    this.updateTitle();
+    this.onModelChange(this.model);
   }
-
+  //设置选中的值到model里面
   setSelected(event: Event, option: siteType) {
-      this.isShowRightTable = true;
-    
+    this.isShowRightTable = true;
+
     event.stopPropagation();
     if (!this.model) {
       this.model = [];
@@ -161,11 +166,13 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
       this.toggleDropdown();
     }
     this.model = this.model.slice();
-    this.onModelChange(this.model);
+    
     this.onModelTouched();
-    if(this.model.length < 1){
+    if (this.model.length < 1) {
       this.isShowRightTable = false;
       this.optionsRight = [];
+      this.title = this.defaultTexts.defaultTitle;
+      this.allTitle = '';
     }
   }
 
@@ -189,6 +196,7 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
     return null;
   }
   registerOnChange(fn: Function): void {
+    this.onModelChange = fn;
   }
 
   registerOnTouched(fn: Function): void {
@@ -197,14 +205,14 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
     const changes = this.differ.diff(this.model);
     if (changes) {
       this.updateNumSelected();
-      this.updateTitle();
+
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['options']) {
       this.options = this.options || [];
-     
+
     }
 
     if (changes['texts'] && !changes['texts'].isFirstChange()) {
@@ -213,10 +221,10 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
   }
 
   updateNumSelected() {
-    this.numSelected = 0;
+    this.numSelected = this.model.length || 0;
   }
+  //更新button里面显示的标题
   updateTitle() {
-    alert(1);
     if (this.numSelected === 0 || this.settings.fixedTitle) {
       this.title = this.texts.defaultTitle || '';
     } else if (this.settings.displayAllSelectedText && this.model.length === this.options.length) {
@@ -232,6 +240,14 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
       this.title = this.numSelected
         + ' '
         + (this.numSelected === 1 ? this.texts.checked : this.texts.checkedPlural);
+    }
+    this.allTitle = this.title;
+    this.allTitle = this.allTitle.replace(/, /g,"\n");
+    if(this.title.length>25){
+      this.title = this.title.substring(0,25)+"..."
+    }
+    if(this.texts.buttonPrefix != '' && this.model.length > 0){
+      this.title = this.texts.buttonPrefix+":"+this.title;
     }
   }
 }

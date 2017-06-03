@@ -42,6 +42,7 @@
             <tr 
               *ngFor="let option of options | searchSiteFilter:searchFilterText" 
               (click)="setSelected($event, option)"
+              (dblclick)="setSelected($event, option)"
               [ngStyle]="getItemStyle(option)">
               <td>
                 <span *ngIf="settings.checkedStyle === 'fontawesome'" style="width: 16px;display: inline-block;">

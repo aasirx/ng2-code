@@ -129,6 +129,7 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
       model.push(this.optionsRight[i].sitename);
     }
     this.onModelChange(model);
+    this.setSelected(event,option);
   }
 
   //清除搜索框的内容

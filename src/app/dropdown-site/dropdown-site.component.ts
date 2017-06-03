@@ -112,6 +112,25 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
   isSelected(option: siteType): boolean {
     return this.model && this.model.indexOf(option.sitename) > -1;
   }
+  removeSelect(event: Event,option:siteType): void{
+    event.stopPropagation();
+    let index = this.optionsRight.indexOf(option);
+    this.optionsRight.splice(index,1);
+    this.onRemoved.emit(option.sitename);
+    this.updateTitle();
+    
+    if(this.optionsRight.length == 0){
+      this.isShowRightTable = false;
+      this.title = this.defaultTexts.defaultTitle;
+      this.allTitle = '';
+    }
+    let model:any[] = [];
+    for(let i=0;i<this.optionsRight.length;i++){
+      model.push(this.optionsRight[i].sitename);
+    }
+    this.onModelChange(model);
+  }
+
   //清除搜索框的内容
   clearSearch(event: Event) {
     event.stopPropagation();
@@ -143,9 +162,6 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
     if (index > -1) {
       this.model.splice(index, 1);
       this.onRemoved.emit(option.sitename);
-      // let childIds = this.options.filter(child => this.model.indexOf(child.sitename) > -1).map(child => child.sitename);
-      //   this.model = this.model.filter(id => childIds.indexOf(id) < 0);
-      //   childIds.forEach(childId => this.onRemoved.emit(childId));
     } else {
       if (this.settings.selectionLimit === 0 || (this.settings.selectionLimit && this.model.length < this.settings.selectionLimit)) {
         this.model.push(option.sitename);
@@ -227,10 +243,10 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
   updateTitle() {
     if (this.numSelected === 0 || this.settings.fixedTitle) {
       this.title = this.texts.defaultTitle || '';
-    } else if (this.settings.displayAllSelectedText && this.model.length === this.options.length) {
+    } else if (this.settings.displayAllSelectedText && this.model.length === this.optionsRight.length) {
       this.title = this.texts.allSelected || '';
     } else if (this.settings.dynamicTitleMaxItems && this.settings.dynamicTitleMaxItems >= this.numSelected) {
-      this.title = this.options
+      this.title = this.optionsRight
         .filter((option: siteType) =>
           this.model && this.model.indexOf(option.sitename) > -1
         )

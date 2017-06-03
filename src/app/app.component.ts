@@ -40,8 +40,8 @@ export class AppComponent implements OnInit {
 
   private selectSettings: IMultiSelectSettings = {
     checkedStyle: 'fontawesome',
-    showCheckAll: true,
-    showUncheckAll: true,
+    showCheckAll: false,
+    showUncheckAll: false,
   };
 
   private selectSettings2: IMultiSelectSettings = {

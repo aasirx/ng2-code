@@ -1,3 +1,25 @@
 .div1{
 	display: inline-block !important;
 }
+
+.right-jt {
+	line-height: 300px;
+	padding:0 4rem;
+}
+
+.table-margin-sty {
+	margin-top: 4.2%;
+}
+
+@media screen and (max-width: 1000px) {
+    .right-jt {
+        line-height: 20px;
+		padding: 1rem 4rem;
+    }
+
+	.table-margin-sty {
+		margin-top: 1rem;
+	}
+}
+
+

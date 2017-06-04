@@ -17,6 +17,12 @@
             "region": "EMS=HUAWEI_TRANS@NEID=3145890",
             "location": "12345",
             "description": "desc2"
+        },
+        {
+            "sitename": "Luwafu_DIR_euswe",
+            "region": "EMS=HUAWEI_TRANS@NEID=3145890",
+            "location": "12345",
+            "description": "desc2"
         }
     ]
 }

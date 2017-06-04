@@ -191,6 +191,7 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
       this.title = this.defaultTexts.defaultTitle;
       this.allTitle = '';
     }
+    this.turnRight();
   }
 
   ngOnInit() {

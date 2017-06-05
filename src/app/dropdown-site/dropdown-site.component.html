@@ -1,5 +1,5 @@
 <div class="dropdown"  [ngClass]="settings.containerClasses" [class.open]="isVisible" >
-  <div style="float:left">
+  <div style="display:block">
     <button 
       type="button" 
       class="dropdown-toggle"
@@ -10,11 +10,12 @@
       [disabled]="disabled">{{ title }}
       <span class="caret"></span>
     </button>
+  </div>
     
-    <div class="row">
+    <div class="row" style="position: absolute;">
       <div 
         *ngIf="isVisible" 
-        class="col-lg-5 col-md-12 col-sm-12" 
+        class="col-lg-6 col-md-6 col-sm-6" 
         [class.pull-right]="settings.pullRight" 
         [class.dropdown-menu-right]="settings.pullRight"
         [style.max-height]="settings.maxHeight" 
@@ -59,7 +60,7 @@
 
         <div  
         *ngIf="isVisible && isShowRightTable" 
-        class="col-lg-5 col-md-12 col-sm-12"
+        class="col-lg-6 col-md-6 col-sm-6"
          [style.max-height]="settings.maxHeight" 
         style="height: auto; overflow-y: auto;vertical-align: top;">
           
@@ -92,7 +93,7 @@
       </div>
 
     </div>
-  </div>
+ 
    
  
 </div>

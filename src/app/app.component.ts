@@ -19,7 +19,41 @@ export class AppComponent implements OnInit {
     // console.log("value:"+value)
   }
 
+  // *******************
+  vipLevelModel:string[];
+  statusModel:string[]
 
+  //******************* */
+
+  private vipLevelData:IMultiSelectOption[] = [
+    {value: '1', name: 'P1'},
+    {value: '2', name: 'P2'},
+    {value: '3', name: 'P3'},
+    {value: '4', name: 'P4'}
+  ]
+  private statusData: IMultiSelectOption[] = [
+    {value: '2', name: '2G'},
+    {value: '3', name: '3G'},
+    {value: '4', name: '4G'},
+    {value: '5', name: '5G'},
+  ]
+  private vipLeveltexts: IMultiSelectTexts = {
+    defaultTitle: 'VIP Level',
+    buttonPrefix: 'VIP Level',
+    searchPlaceholder: 'Find VIP Level'
+  }
+  private vipLevelSettings: IMultiSelectSettings = {
+    checkedStyle: 'fontawesome',
+    showCheckAll: false,
+    showUncheckAll: false,
+    enableSearch:true
+  };
+  onChangeVipLevel() {
+    console.log(this.vipLevelModel);
+  }
+
+
+  // *******************
   private countries: IMultiSelectOption[] = [
     { value: 1, name: 'Sweden' },
     { value: 2, name: 'Norway' },

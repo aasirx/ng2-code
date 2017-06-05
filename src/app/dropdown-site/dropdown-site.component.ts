@@ -116,7 +116,9 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
     event.stopPropagation();
     let index = this.optionsRight.indexOf(option);
     this.optionsRight.splice(index,1);
+    this.model = this.setModelValue(this.optionsRight);
     this.onRemoved.emit(option.sitename);
+    this.updateNumSelected();
     this.updateTitle();
     
     if(this.optionsRight.length == 0){
@@ -124,12 +126,17 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
       this.title = this.defaultTexts.defaultTitle;
       this.allTitle = '';
     }
+    let model:any[] = this.setModelValue(this.optionsRight);
+    this.onModelChange(model);
+    this.model = model;
+    this.updateTitle();
+  }
+  setModelValue(arr:Array<siteType>):any[]{
     let model:any[] = [];
     for(let i=0;i<this.optionsRight.length;i++){
       model.push(this.optionsRight[i].sitename);
     }
-    this.onModelChange(model);
-    this.setSelected(event,option);
+    return model;
   }
 
   //清除搜索框的内容
@@ -148,6 +155,7 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
         }
       }
     }
+    this.model = this.setModelValue(this.optionsRight);
     this.updateTitle();
     this.onModelChange(this.model);
   }
@@ -239,7 +247,7 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
   }
 
   updateNumSelected() {
-    this.numSelected = this.model.length || 0;
+    this.numSelected = this.optionsRight.length || 0;
   }
   //更新button里面显示的标题
   updateTitle() {
@@ -247,7 +255,7 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
       this.title = this.texts.defaultTitle || '';
     } else if (this.settings.displayAllSelectedText && this.model.length === this.optionsRight.length) {
       this.title = this.texts.allSelected || '';
-    } else if (this.settings.dynamicTitleMaxItems && this.settings.dynamicTitleMaxItems >= this.numSelected) {
+    } else if (this.numSelected) {
       this.title = this.optionsRight
         .filter((option: siteType) =>
           this.model && this.model.indexOf(option.sitename) > -1
@@ -255,13 +263,13 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
         .map((option: siteType) => option.sitename)
         .join(', ');
     } else {
-      this.title = this.numSelected
-        + ' '
-        + (this.numSelected === 1 ? this.texts.checked : this.texts.checkedPlural);
+      // this.title = this.numSelected
+      //   + ' '
+      //   + (this.numSelected === 1 ? this.texts.checked : this.texts.checkedPlural);
     }
     this.allTitle = this.title;
     this.allTitle = this.allTitle.replace(/, /g,"\n");
-    if(this.title.length>25){
+    if(!this.title.endsWith("...")&&this.title.length>25){
       this.title = this.title.substring(0,25)+"..."
     }
     if(this.texts.buttonPrefix != '' && this.model.length > 0){

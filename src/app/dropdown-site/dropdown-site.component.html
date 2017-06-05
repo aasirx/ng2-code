@@ -1,5 +1,6 @@
-<div class="dropdown"  [ngClass]="settings.containerClasses" [class.open]="isVisible">
-   <button 
+<div class="dropdown"  [ngClass]="settings.containerClasses" [class.open]="isVisible" >
+  <div style="float:left">
+    <button 
       type="button" 
       class="dropdown-toggle"
       [title]="allTitle"
@@ -52,9 +53,9 @@
         </table>
       </div>
 
-       <div *ngIf="isVisible && isShowRightTable" class="col-lg-1 right-jt">
+       <!--<div *ngIf="isVisible && isShowRightTable" class="col-lg-1 right-jt">
            <i class="fa fa-long-arrow-right" aria-hidden="true" (click)="turnRight()" style="cursor:pointer"></i>
-      </div>
+      </div>-->
 
         <div  
         *ngIf="isVisible && isShowRightTable" 
@@ -91,6 +92,8 @@
       </div>
 
     </div>
+  </div>
+   
  
 </div>
 

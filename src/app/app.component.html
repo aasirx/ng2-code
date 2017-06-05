@@ -3,13 +3,71 @@
 (textChanges)="onTextChanges($event)"
 [selectName]="selectName">
 </app-template>-->
-<div>
+<!--<div>
 
 	<h4>Search filter</h4>
-	<ss-multiselect-dropdown [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)" [options]="countries" [settings]="selectSettings"
-	 [texts]="texts"></ss-multiselect-dropdown>
+
 
 </div>
 <div>
 	<app-dropdown-site [(ngModel)]="optionsModel2" [texts]="texts2" (ngModelChange)="onChange2($event)" [options]="data"></app-dropdown-site>
+</div>-->
+<div class="container-fluid">
+    <div class="row">
+        <form action="" class="form-inline">
+            <div class="form-group">
+                <label class="sr-only" for="VIP Level"></label>
+                	<ss-multiselect-dropdown 
+                        class="col-xs-3 col-sm-3 col-md-3"
+                        name="VIP Level" 
+                        [(ngModel)]="vipLevelModel" 
+                        (ngModelChange)="onChangeVipLevel($event)" 
+                        [options]="vipLevelData" 
+                        [settings]="vipLevelSettings" 
+                        [texts]="vipLeveltexts">
+                    </ss-multiselect-dropdown>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="VIP Level"></label>
+                	<ss-multiselect-dropdown 
+                        class="col-xs-3 col-sm-3 col-md-3"
+                        name="VIP Level" 
+                        [(ngModel)]="optionsModel" 
+                        (ngModelChange)="onChange($event)" 
+                        [options]="countries" 
+                        [settings]="selectSettings" 
+                        [texts]="texts">
+                    </ss-multiselect-dropdown>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="VIP Level"></label>
+                	<ss-multiselect-dropdown 
+                        class="col-xs-3 col-sm-3 col-md-3"
+                        name="VIP Level" 
+                        [(ngModel)]="optionsModel" 
+                        (ngModelChange)="onChange($event)" 
+                        [options]="countries" 
+                        [settings]="selectSettings" 
+                        [texts]="texts">
+                    </ss-multiselect-dropdown>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="VIP Level"></label>
+                	<ss-multiselect-dropdown 
+                        class="col-xs-3 col-sm-3 col-md-3"
+                        name="VIP Level" 
+                        [(ngModel)]="optionsModel" 
+                        (ngModelChange)="onChange($event)" 
+                        [options]="countries" 
+                        [settings]="selectSettings" 
+                        [texts]="texts">
+                    </ss-multiselect-dropdown>
+            </div>
+            <!--<div class="form-group">
+                <label class="sr-only" for="VIP Level"></label>
+                	<app-dropdown-site name="site" [(ngModel)]="optionsModel2" [texts]="texts2" (ngModelChange)="onChange2($event)" [options]="data"></app-dropdown-site>
+            </div>-->
+        </form>
+    </div>
+
 </div>

@@ -25,7 +25,8 @@
                         (ngModelChange)="onChangeVipLevel($event)" 
                         [options]="vipLevelData" 
                         [settings]="vipLevelSettings" 
-                        [texts]="vipLeveltexts">
+                        [texts]="vipLeveltexts"
+                        (onRemovedButton)="RemoveButton($event)">
                     </ss-multiselect-dropdown>
             </div>
             <div class="form-group">

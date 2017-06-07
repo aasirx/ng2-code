@@ -15,6 +15,21 @@ export class DataService {
     getSites(): Promise<siteType[]> {
         return this.http.get(this.api_url)
         .toPromise()
-        .then(res => res.json() as siteType[])
+        .then(res => res.json().data as siteType[])
+    }
+    getSitePrev(keywork:string, url: string, page: number, pageSize: number){
+        var cond={
+            cond:keywork,
+            queryNo:page,
+            queryPerNum:pageSize
+        }
+        return this.postHttp(url, JSON.stringify(cond));
+    }
+    private postHttp(url: string, conds: any) {
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+        return this.http
+            .get(url,{headers: headers});
     }
 }

@@ -1,6 +1,7 @@
 export interface IMultiSelectOption {
   value: any;
   name: string;
+  ischeck?:boolean;
   isLabel?: boolean;
   parentId?: any;
   params?: any;
@@ -22,6 +23,7 @@ export interface IMultiSelectSettings {
   dynamicTitleMaxItems?: number;
   maxHeight?: string;
   displayAllSelectedText?: boolean;
+  showButtonRemove?:boolean;
 }
 
 export interface IMultiSelectTexts {

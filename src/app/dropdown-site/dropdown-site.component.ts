@@ -16,6 +16,7 @@ import {
 } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, Validator } from '@angular/forms';
 import { siteType } from '../dropdown-site/site-types'
+import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
 const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -41,7 +42,7 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
   @Output() dropdownOpened = new EventEmitter();
   @Output() onAdded = new EventEmitter();
   @Output() onRemoved = new EventEmitter();
-
+  page = 4;
 
   @HostListener('document: click', ['$event.target'])
   onClick(target: HTMLElement) {
@@ -66,7 +67,7 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
   isShowRightTable: boolean = false;
   numSelected: number = 0;
   differ: any;
-  allTitle:string = '';//button显示的所有值
+  allTitle: string = '';//button显示的所有值
 
   defaultSettings: IMultiSelectSettings = {
     pullRight: false,
@@ -91,11 +92,14 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
     searchPlaceholder: 'Search...',
     defaultTitle: 'Select',
     allSelected: 'All selected',
-    buttonPrefix:''
+    buttonPrefix: ''
   };
 
-  constructor(private element: ElementRef, differs: IterableDiffers) {
+  constructor(private element: ElementRef, differs: IterableDiffers, config: NgbPaginationConfig) {
     this.differ = differs.find([]).create(null);
+    config.size = 'sm';
+    config.ellipses = true
+    config.boundaryLinks = true;
   }
 
   toggleDropdown() {
@@ -112,28 +116,28 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
   isSelected(option: siteType): boolean {
     return this.model && this.model.indexOf(option.sitename) > -1;
   }
-  removeSelect(event: Event,option:siteType): void{
+  removeSelect(event: Event, option: siteType): void {
     event.stopPropagation();
     let index = this.optionsRight.indexOf(option);
-    this.optionsRight.splice(index,1);
+    this.optionsRight.splice(index, 1);
     this.model = this.setModelValue(this.optionsRight);
     this.onRemoved.emit(option.sitename);
     this.updateNumSelected();
     this.updateTitle();
-    
-    if(this.optionsRight.length == 0){
+
+    if (this.optionsRight.length == 0) {
       this.isShowRightTable = false;
       this.title = this.defaultTexts.defaultTitle;
       this.allTitle = '';
     }
-    let model:any[] = this.setModelValue(this.optionsRight);
+    let model: any[] = this.setModelValue(this.optionsRight);
     this.onModelChange(model);
     this.model = model;
     this.updateTitle();
   }
-  setModelValue(arr:Array<siteType>):any[]{
-    let model:any[] = [];
-    for(let i=0;i<this.optionsRight.length;i++){
+  setModelValue(arr: Array<siteType>): any[] {
+    let model: any[] = [];
+    for (let i = 0; i < this.optionsRight.length; i++) {
       model.push(this.optionsRight[i].sitename);
     }
     return model;
@@ -191,7 +195,7 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
       this.toggleDropdown();
     }
     this.model = this.model.slice();
-    
+
     this.onModelTouched();
     if (this.model.length < 1) {
       this.isShowRightTable = false;
@@ -268,12 +272,12 @@ export class DropdownSiteComponent implements OnInit, OnChanges, DoCheck, Contro
       //   + (this.numSelected === 1 ? this.texts.checked : this.texts.checkedPlural);
     }
     this.allTitle = this.title;
-    this.allTitle = this.allTitle.replace(/, /g,"\n");
-    if(!this.title.endsWith("...")&&this.title.length>25){
-      this.title = this.title.substring(0,25)+"..."
+    this.allTitle = this.allTitle.replace(/, /g, "\n");
+    if (!this.title.endsWith("...") && this.title.length > 25) {
+      this.title = this.title.substring(0, 25) + "..."
     }
-    if(this.texts.buttonPrefix != '' && this.model.length > 0){
-      this.title = this.texts.buttonPrefix+":"+this.title;
+    if (this.texts.buttonPrefix != '' && this.model.length > 0) {
+      this.title = this.texts.buttonPrefix + ":" + this.title;
     }
   }
 }

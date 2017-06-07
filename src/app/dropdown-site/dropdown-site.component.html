@@ -52,6 +52,8 @@
             </tr>
           </tbody>
         </table>
+        <ngb-pagination [collectionSize]="70" [(page)]="page"></ngb-pagination>
+        <!--<sif-smart-table [settings]="settings" (slectedDataChange)="showSelectedData($event)" [refreshEmitter]="refreshObservable"></sif-smart-table>-->
       </div>
 
        <!--<div *ngIf="isVisible && isShowRightTable" class="col-lg-1 right-jt">

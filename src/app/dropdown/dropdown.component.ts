@@ -18,7 +18,8 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  AfterContentInit
 } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, Validator } from '@angular/forms';
 
@@ -34,7 +35,7 @@ const MULTISELECT_VALUE_ACCESSOR: any = {
   styleUrls: ['./dropdown.component.css'],
   providers: [MULTISELECT_VALUE_ACCESSOR]
 })
-export class MultiselectDropdown implements OnInit, OnChanges, DoCheck, ControlValueAccessor, Validator {
+export class MultiselectDropdown implements OnInit, OnChanges, AfterContentInit, DoCheck, ControlValueAccessor, Validator {
   @Input() options: Array<IMultiSelectOption>;
   @Input() settings: IMultiSelectSettings;
   @Input() texts: IMultiSelectTexts;
@@ -44,6 +45,7 @@ export class MultiselectDropdown implements OnInit, OnChanges, DoCheck, ControlV
   @Output() dropdownOpened = new EventEmitter();
   @Output() onAdded = new EventEmitter();
   @Output() onRemoved = new EventEmitter();
+  @Output() onRemovedButton = new EventEmitter();
 
   @HostListener('document: click', ['$event.target'])
   onClick(target: HTMLElement) {
@@ -61,19 +63,19 @@ export class MultiselectDropdown implements OnInit, OnChanges, DoCheck, ControlV
     }
   }
 
-  model: any[];
+  model: any[] = [];
   parents: any[];
   title: string;
   differ: any;
   numSelected: number = 0;
   isVisible: boolean = false;
   searchFilterText: string = '';
-  allTitle:string = '';//button显示的所有值
+  allTitle: string = '';//button显示的所有值
 
   defaultSettings: IMultiSelectSettings = {
     pullRight: false,
     enableSearch: false,
-    checkedStyle: 'checkboxes',
+    checkedStyle: 'fontawesome',
     buttonClasses: 'btn btn-default btn-secondary',
     containerClasses: 'dropdown-inline',
     selectionLimit: 0,
@@ -81,8 +83,9 @@ export class MultiselectDropdown implements OnInit, OnChanges, DoCheck, ControlV
     autoUnselect: false,
     showCheckAll: false,
     showUncheckAll: false,
+    showButtonRemove: true,
     fixedTitle: false,
-    dynamicTitleMaxItems: 3,
+    dynamicTitleMaxItems: 100,
     maxHeight: '300px',
   };
   defaultTexts: IMultiSelectTexts = {
@@ -93,7 +96,7 @@ export class MultiselectDropdown implements OnInit, OnChanges, DoCheck, ControlV
     searchPlaceholder: 'Search...',
     defaultTitle: 'Select',
     allSelected: 'All selected',
-    buttonPrefix:''
+    buttonPrefix: ''
   };
 
   constructor(private element: ElementRef,
@@ -106,11 +109,28 @@ export class MultiselectDropdown implements OnInit, OnChanges, DoCheck, ControlV
       return { 'cursor': 'pointer' };
     }
   }
+  getButtonStyle(): any {
+    if (this.settings.showButtonRemove) {
+      return { 'dropdown-toggle::after': 'position: absolute;top:17px;right: 25px' }
+    }
+  }
 
   ngOnInit() {
     this.settings = Object.assign(this.defaultSettings, this.settings);
     this.texts = Object.assign(this.defaultTexts, this.texts);
     this.title = this.texts.defaultTitle || '';
+  }
+  ngAfterContentInit() {
+    if (this.options.length > 0) {
+      for (let i = 0; i < this.options.length; i++) {
+        if (this.options[i].ischeck) {
+          this.model.push(this.options[i].value)
+          this.updateNumSelected();
+          this.updateTitle();
+        }
+      }
+
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -182,12 +202,24 @@ export class MultiselectDropdown implements OnInit, OnChanges, DoCheck, ControlV
   isSelected(option: IMultiSelectOption): boolean {
     return this.model && this.model.indexOf(option.value) > -1;
   }
-
+  ischeck: boolean = true;
   setSelected(_event: Event, option: IMultiSelectOption) {
+    for (let i = 0; i < this.options.length; i++) {
+      if (this.options[i].ischeck && this.ischeck) {
+        this.model.push(this.options[i].value)
+        this.updateNumSelected();
+        this.updateTitle();
+      }
+    }
+    if (option.ischeck) {
+      option.ischeck = false;
+      this.ischeck = false;
+    }
     _event.stopPropagation();
     if (!this.model) {
       this.model = [];
     }
+
     const index = this.model.indexOf(option.value);
     if (index > -1) {
       this.model.splice(index, 1);
@@ -263,12 +295,12 @@ export class MultiselectDropdown implements OnInit, OnChanges, DoCheck, ControlV
         + (this.numSelected === 1 ? this.texts.checked : this.texts.checkedPlural);
     }
     this.allTitle = this.title;
-    this.allTitle = this.allTitle.replace(/, /g,"\n");
-    if(this.title.length>15){
-      this.title = this.title.substring(0,15)+"..."
+    this.allTitle = this.allTitle.replace(/, /g, "\n");
+    if (this.title.length > 15) {
+      this.title = this.title.substring(0, 15) + "..."
     }
-    if(this.texts.buttonPrefix != '' && this.model.length > 0){
-      this.title = this.texts.buttonPrefix+":"+this.title;
+    if (this.texts.buttonPrefix != '' && this.model.length > 0) {
+      this.title = this.texts.buttonPrefix + ":" + this.title;
     }
   }
 
@@ -314,5 +346,8 @@ export class MultiselectDropdown implements OnInit, OnChanges, DoCheck, ControlV
     ) {
       event.preventDefault();
     }
+  }
+  removeButton() {
+    this.onRemovedButton.emit(this.texts.defaultTitle)
   }
 }

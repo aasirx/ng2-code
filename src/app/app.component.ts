@@ -20,22 +20,23 @@ export class AppComponent implements OnInit {
   }
 
   // *******************
-  vipLevelModel:string[];
-  statusModel:string[]
+  vipLevelModel: string[];
+  statusModel: string[]
 
   //******************* */
 
-  private vipLevelData:IMultiSelectOption[] = [
-    {value: '1', name: 'P1'},
-    {value: '2', name: 'P2'},
-    {value: '3', name: 'P3'},
-    {value: '4', name: 'P4'}
+  private vipLevelData: IMultiSelectOption[] = [
+    { value: '1', name: 'P1', ischeck: true },
+    { value: '2', name: 'P2', ischeck: true },
+    { value: '3', name: 'P3', ischeck: true },
+    { value: '4', name: 'P4', ischeck: true },
+    { value: '5', name: 'P5', ischeck: true }
   ]
   private statusData: IMultiSelectOption[] = [
-    {value: '2', name: '2G'},
-    {value: '3', name: '3G'},
-    {value: '4', name: '4G'},
-    {value: '5', name: '5G'},
+    { value: '2', name: '2G' },
+    { value: '3', name: '3G' },
+    { value: '4', name: '4G' },
+    { value: '5', name: '5G' },
   ]
   private vipLeveltexts: IMultiSelectTexts = {
     defaultTitle: 'VIP Level',
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit {
     checkedStyle: 'fontawesome',
     showCheckAll: false,
     showUncheckAll: false,
-    enableSearch:true
+    enableSearch: true
   };
   onChangeVipLevel() {
     console.log(this.vipLevelModel);
@@ -90,7 +91,9 @@ export class AppComponent implements OnInit {
   onChange2() {
     console.log(this.optionsModel2);
   }
-
+  RemoveButton(value) {
+    console.log(value);
+  }
   constructor(private service: DataService) { }
   ngOnInit() {
     this.service.getSites()

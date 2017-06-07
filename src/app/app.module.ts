@@ -11,6 +11,7 @@ import { SiteComponent } from './site/site.component';
 import { MultiselectDropdownModule } from './dropdown/dropdown.module';
 import { MultiselectDropdownSiteModule } from './dropdown-site/dropdown-site.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from "ng2-translate";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     Select2Module,
     MultiselectDropdownModule,
     MultiselectDropdownSiteModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    TranslateModule.forRoot(),
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
